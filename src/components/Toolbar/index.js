@@ -153,17 +153,21 @@ export default class Toolbar extends Component {
   };
 
   renderExtrasMenu() {
-    const {vimMode, onToggleColorAttributionMode} = this.props;
+    const {vimMode, hideAcrossMode, hideDownMode} = this.props;
     const vimModeLabel = vimMode ? 'Disable Vim Mode' : 'Enable Vim Mode';
+    const hideAcrossLabel = hideAcrossMode ? 'Show Across' : 'Hide Across';
+    const hideDownLabel = hideDownMode ? 'Show Down' : 'Hide Down';
     return (
       <ActionMenu
         label="Extras"
         onBlur={this.handleBlur}
         actions={{
           [vimModeLabel]: this.handleVimModeClick,
-          'Color Attribution': onToggleColorAttributionMode,
+          'Color Attribution': this.props.onToggleColorAttributionMode,
           'List View': this.props.onToggleListView,
           Pencil: this.props.onTogglePencil,
+          [hideAcrossLabel]: this.props.onToggleHideAcross,
+          [hideDownLabel]: this.props.onToggleHideDown,
           Autocheck: this.props.onToggleAutocheck,
           'Create new game link': () => window.open(`/beta/play/${this.props.pid}?new=1`, '_blank'),
         }}

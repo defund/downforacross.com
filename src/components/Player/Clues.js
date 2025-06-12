@@ -25,6 +25,8 @@ export default class Clues extends Component {
       isClueFilled,
       scrollToClue,
       selectClue,
+      hideAcrossMode,
+      hideDownMode,
     } = this.props;
     const {showClueLengths} = this.state;
 
@@ -37,7 +39,7 @@ export default class Clues extends Component {
         />
         {
           // Clues component
-          ['across', 'down'].map((dir, i) => (
+          ['across', 'down'].filter((dir) => !hideAcrossMode && dir === 'across' || !hideDownMode && dir === 'down').map((dir, i) => (
             <div key={i} className="clues--list">
               <div className="clues--list--title">{dir.toUpperCase()}</div>
 

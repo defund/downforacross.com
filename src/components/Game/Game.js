@@ -21,6 +21,8 @@ export default class Game extends Component {
     this.state = {
       listMode: false,
       pencilMode: false,
+      hideAcrossMode: false,
+      hideDownMode: false,
       autocheckMode: false,
       screenWidth: 0,
       vimMode: false,
@@ -189,6 +191,18 @@ export default class Game extends Component {
     }));
   };
 
+  handleToggleHideAcross = () => {
+    this.setState((prevState) => ({
+      hideAcrossMode: !prevState.hideAcrossMode,
+    }));
+  }
+
+  handleToggleHideDown = () => {
+    this.setState((prevState) => ({
+      hideDownMode: !prevState.hideDownMode,
+    }));
+  }
+
   handleToggleAutocheck = () => {
     this.setState((prevState) => ({
       autocheckMode: !prevState.autocheckMode,
@@ -319,6 +333,8 @@ export default class Game extends Component {
         onPressEnter={this.handlePressEnter}
         onPressPeriod={this.handlePressPeriod}
         listMode={this.state.listMode}
+        hideAcrossMode={this.state.hideAcrossMode}
+        hideDownMode={this.state.hideDownMode}
         vimMode={this.state.vimMode}
         vimInsert={this.state.vimInsert}
         vimCommand={this.state.vimCommand}
@@ -342,7 +358,7 @@ export default class Game extends Component {
     if (!this.game) return;
     const {clock, solved} = this.game;
     const {mobile} = this.props;
-    const {pencilMode, autocheckMode, vimMode, vimInsert, vimCommand, listMode, expandMenu} = this.state;
+    const {pencilMode, hideAcrossMode, hideDownMode, autocheckMode, vimMode, vimInsert, vimCommand, listMode, expandMenu} = this.state;
     const {lastUpdated: startTime, totalTime: pausedTime, paused: isPaused} = clock;
     return (
       <Toolbar
@@ -356,6 +372,8 @@ export default class Game extends Component {
         listMode={listMode}
         expandMenu={expandMenu}
         pencilMode={pencilMode}
+        hideAcrossMode={hideAcrossMode}
+        hideDownMode={hideDownMode}
         autocheckMode={autocheckMode}
         vimMode={vimMode}
         solved={solved}
@@ -369,6 +387,8 @@ export default class Game extends Component {
         onReset={this.handleReset}
         onKeybind={this.handleKeybind}
         onTogglePencil={this.handleTogglePencil}
+        onToggleHideAcross={this.handleToggleHideAcross}
+        onToggleHideDown={this.handleToggleHideDown}
         onToggleVimMode={this.handleToggleVimMode}
         onToggleAutocheck={this.handleToggleAutocheck}
         onToggleListView={this.handleToggleListView}

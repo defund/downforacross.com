@@ -228,6 +228,9 @@ export default class Player extends Component {
   }
 
   getClueBarText() {
+    if (this.props.hideAcrossMode && this.state.direction === 'across' || this.props.hideDownMode && this.state.direction === 'down') {
+      return '';
+    }
     return this.props.clues[this.state.direction][this.getSelectedClueNumber()];
   }
 
@@ -426,6 +429,8 @@ export default class Player extends Component {
       isClueFilled: this._isClueFilled,
       scrollToClue: this._scrollToClue,
       selectClue: this._selectClue,
+      hideAcrossMode: this.props.hideAcrossMode,
+      hideDownMode: this.props.hideDownMode,
     };
 
     const listViewProps = {
