@@ -30,6 +30,14 @@ export default class Clues extends Component {
     } = this.props;
     const {showClueLengths} = this.state;
 
+    const dirs = [];
+    if (!hideAcrossMode) {
+      dirs.push('across');
+    }
+    if (!hideDownMode) {
+      dirs.push('down');
+    }
+
     return (
       <div className="clues">
         <div
@@ -39,7 +47,7 @@ export default class Clues extends Component {
         />
         {
           // Clues component
-          ['across', 'down'].filter((dir) => !hideAcrossMode && dir === 'across' || !hideDownMode && dir === 'down').map((dir, i) => (
+          dirs.map((dir, i) => (
             <div key={i} className="clues--list">
               <div className="clues--list--title">{dir.toUpperCase()}</div>
 

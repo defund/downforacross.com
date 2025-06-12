@@ -155,8 +155,17 @@ export default class Toolbar extends Component {
   renderExtrasMenu() {
     const {vimMode, hideAcrossMode, hideDownMode} = this.props;
     const vimModeLabel = vimMode ? 'Disable Vim Mode' : 'Enable Vim Mode';
-    const hideAcrossLabel = hideAcrossMode ? 'Show Across' : 'Hide Across';
-    const hideDownLabel = hideDownMode ? 'Show Down' : 'Hide Down';
+
+    const hideLabels = {};
+    if (!hideDownMode) {
+      const hideAcrossLabel = hideAcrossMode ? 'Show across clues' : 'Hide across clues';
+      hideLabels[hideAcrossLabel] = this.props.onToggleHideAcross;
+    }
+    if (!hideAcrossMode) {
+      const hideDownLabel = hideDownMode ? 'Show down clues' : 'Hide down clues';
+      hideLabels[hideDownLabel] = this.props.onToggleHideDown;
+    }
+
     return (
       <ActionMenu
         label="Extras"
@@ -166,9 +175,8 @@ export default class Toolbar extends Component {
           'Color Attribution': this.props.onToggleColorAttributionMode,
           'List View': this.props.onToggleListView,
           Pencil: this.props.onTogglePencil,
-          [hideAcrossLabel]: this.props.onToggleHideAcross,
-          [hideDownLabel]: this.props.onToggleHideDown,
           Autocheck: this.props.onToggleAutocheck,
+          ...hideLabels,
           'Create new game link': () => window.open(`/beta/play/${this.props.pid}?new=1`, '_blank'),
         }}
       />
